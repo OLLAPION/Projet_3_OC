@@ -1,5 +1,7 @@
 package com.openclassrooms.entrevoisins.ui.neighbour_list;
 
+import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +47,24 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.mNeighbourAvatar);
 
+
+
+        holder.layoutCentral.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent detailsNeighbourActivityIntent = new Intent(view.getContext(), DetailsNeighbourActivity.class);
+                detailsNeighbourActivityIntent.putExtra("neighbourPosition", neighbour.getPosition());
+                detailsNeighbourActivityIntent.putExtra("neighbourName", neighbour.getName());
+                detailsNeighbourActivityIntent.putExtra("neighbourAvatar", neighbour.getAvatarUrl());
+                detailsNeighbourActivityIntent.putExtra("neighbourAddress", neighbour.getAddress());
+                detailsNeighbourActivityIntent.putExtra("neighbourPhoneNumber", neighbour.getPhoneNumber());
+                detailsNeighbourActivityIntent.putExtra("neighbourAboutMe", neighbour.getAboutMe());
+                view.getContext().startActivity(detailsNeighbourActivityIntent);
+
+            }
+        });
+
         holder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +85,8 @@ public class MyNeighbourRecyclerViewAdapter extends RecyclerView.Adapter<MyNeigh
         public TextView mNeighbourName;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
+        @BindView(R.id.central)
+        ConstraintLayout layoutCentral;
 
         public ViewHolder(View view) {
             super(view);

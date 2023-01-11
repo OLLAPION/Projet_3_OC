@@ -10,7 +10,7 @@ import java.util.List;
 public class DummyNeighbourApiService implements  NeighbourApiService {
 
     private List<Neighbour> neighbours = DummyNeighbourGenerator.generateNeighbours();
-
+    private List<Neighbour> neighboursFavourite = DummyNeighbourGenerator.generateFavouriteNeighbours();
 
     /**
      * {@inheritDoc}
@@ -18,6 +18,11 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     @Override
     public List<Neighbour> getNeighbours() {
         return neighbours;
+    }
+
+    @Override
+    public List<Neighbour> getNeighboursFavourite() {
+        return neighboursFavourite;
     }
 
     /**
@@ -36,4 +41,29 @@ public class DummyNeighbourApiService implements  NeighbourApiService {
     public void createNeighbour(Neighbour neighbour) {
         neighbours.add(neighbour);
     }
+
+
+    @Override
+    public void deleteFavouriteNeighbour(Neighbour neighbour) {
+        neighboursFavourite.remove(neighbour);
+    }
+
+    @Override
+    public void addFavouriteNeighbour(Neighbour neighbour) {
+        if (!isInFavourite(neighbour)) {
+            neighboursFavourite.add(neighbour);
+        }
+
+    }
+
+    @Override
+    public boolean isInFavourite(Neighbour neighbour) {
+        if(neighboursFavourite.contains(neighbour)) {
+            return true;
+        };
+        return false;
+    }
+
+
+
 }

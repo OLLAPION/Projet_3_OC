@@ -8,7 +8,7 @@ import java.util.Objects;
 public class Neighbour {
 
     /** Identifier */
-    private long id;
+    private Integer id;
 
     /** Full name */
     private String name;
@@ -25,27 +25,40 @@ public class Neighbour {
     /** About me */
     private String aboutMe;
 
+    /** Position */
+    private int position;
+
     /**
      * Constructor
      * @param id
      * @param name
      * @param avatarUrl
      */
-    public Neighbour(long id, String name, String avatarUrl, String address,
-                     String phoneNumber, String aboutMe) {
+    public Neighbour(Integer id, String name, String avatarUrl, String address,
+                     String phoneNumber, String aboutMe, int position) {
         this.id = id;
         this.name = name;
         this.avatarUrl = avatarUrl;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.aboutMe = aboutMe;
+        this.position = position;
     }
 
-    public long getId() {
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
