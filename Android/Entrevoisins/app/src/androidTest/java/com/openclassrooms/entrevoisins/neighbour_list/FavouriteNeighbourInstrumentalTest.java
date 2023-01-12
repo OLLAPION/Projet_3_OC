@@ -62,6 +62,7 @@ public class FavouriteNeighbourInstrumentalTest {
     public ActivityTestRule<ListNeighbourActivity> mActivityRule =
             new ActivityTestRule(ListNeighbourActivity.class);
 
+
     @Test
     public void whenClickOnNeighbourList() {
 
@@ -92,24 +93,13 @@ public class FavouriteNeighbourInstrumentalTest {
     @Test
     public void checkInFavouriteListTheNeighbour() {
 
-        onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.list_neighbours), isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
-
-        onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.addFavourite), isDisplayed()))
-                .perform(click());
-
-        onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.buttonBack), isDisplayed()))
-                .perform(click());
-
-        onView(withId(R.id.tabs)).perform(new ToolBarSelect(1));
-
-    }
-
-    @Test
-    public void deleteInFavouriteListTheNeighbour() {
+        final int positionStart = 5;
+        final int positionExpected = 1;
+        List<Neighbour> NeighbourList = DI.getNewInstanceApiService().getNeighbours();
+        String nameNeighbourTest = NeighbourList.get(positionStart).getName();
 
         onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.list_neighbours), isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(5, click()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(positionStart, click()));
 
         onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.addFavourite), isDisplayed()))
                 .perform(click());
@@ -120,15 +110,9 @@ public class FavouriteNeighbourInstrumentalTest {
         onView(withId(R.id.tabs)).perform(new ToolBarSelect(1));
 
         onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.list_favourite_neighbours), isDisplayed()))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+                .perform(RecyclerViewActions.actionOnItemAtPosition(positionExpected, click()));
 
-        onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.addFavourite), isDisplayed()))
-                .perform(click());
-
-        onView(CoreMatchers.allOf(ViewMatchers.withId(R.id.buttonBack), isDisplayed()))
-                .perform(click());
-
+        onView(ViewMatchers.withId(R.id.prenom1))
+                .check(matches(withText(containsString(nameNeighbourTest))));
     }
-
-
 }
